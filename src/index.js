@@ -12,8 +12,12 @@ const div = document.querySelector('.country-info')
 
 input.addEventListener('input', _.debounce(e => {
   e.preventDefault()
-  ul.innerHTML = ''
+
   const trimmedInput = input.value.trim()
+  if (!trimmedInput) {
+    ul.innerHTML = ''
+    div.innerHTML = ''
+  }
   const countriesArray = fetchCountires(trimmedInput)
   countriesArray.then(data => {
     if(data.length > 10) {
