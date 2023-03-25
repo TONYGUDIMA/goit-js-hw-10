@@ -12,18 +12,17 @@ const div = document.querySelector('.country-info')
 
 input.addEventListener('input', _.debounce(e => {
   e.preventDefault()
-
+  ul.innerHTML = ''
+  div.innerHTML = ''
   const trimmedInput = input.value.trim()
-  if (!trimmedInput) {
-    ul.innerHTML = ''
-    div.innerHTML = ''
-  }
   const countriesArray = fetchCountires(trimmedInput)
   countriesArray.then(data => {
     if(data.length > 10) {
       Notify.info("Too many matches found. Please enter a more specific name.")
     } else if (data.length >= 2 && data.length <= 10 ) {
+      ul.innerHTML = ''
       data.forEach(el => {
+        
         div.innerHTML = ''
         const li = document.createElement('li')
         const img = document.createElement('img')
@@ -36,6 +35,7 @@ input.addEventListener('input', _.debounce(e => {
         ul.append(li)
       })
     } else {
+      div.innerHTML = ''
       ul.innerHTML = ''
       data.forEach(el => {
         const allLanguages = el.languages.map(el => el.name)

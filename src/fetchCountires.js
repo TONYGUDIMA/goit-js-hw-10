@@ -3,6 +3,9 @@ import { Notify } from 'notiflix'
 
 
 export default function fetchCountires(name) {
+  if(name === '') {
+    return
+  }
   const url = `https://restcountries.com/v2/name/${name}`
   const promise = 
   fetch(url)
